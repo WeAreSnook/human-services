@@ -37,7 +37,6 @@ namespace ServiceDirectoryExporter
         }).AddCookie().AddGoogleOpenIdConnect(options =>
         {
             options.ClientId = System.Environment.GetEnvironmentVariable("ClientId");
-            Console.WriteLine("id " + options.ClientId);
             options.ClientSecret = System.Environment.GetEnvironmentVariable("ClientSecret");
         });
         }
