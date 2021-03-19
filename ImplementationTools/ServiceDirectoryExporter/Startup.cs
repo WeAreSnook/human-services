@@ -1,3 +1,4 @@
+using System;
 using Google.Apis.Auth.AspNetCore3;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -35,8 +36,9 @@ namespace ServiceDirectoryExporter
             o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         }).AddCookie().AddGoogleOpenIdConnect(options =>
         {
-            options.ClientId = "1079571407435-e83hm1n7l8pg31936obqip62lh1kvie7.apps.googleusercontent.com";
-            options.ClientSecret = "Y9OGaTm4eOyyFM0nNjeY2PPU";
+            options.ClientId = System.Environment.GetEnvironmentVariable("ClientId");
+            Console.WriteLine("id " + options.ClientId);
+            options.ClientSecret = System.Environment.GetEnvironmentVariable("ClientSecret");
         });
         }
 

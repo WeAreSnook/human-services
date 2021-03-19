@@ -17,6 +17,10 @@ namespace ServiceDirectoryExporter
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
+                DotNetEnv.Env.TraversePath().Load();
+                IConfigurationRoot config = new ConfigurationBuilder()
+                    .AddEnvironmentVariables()
+                    .Build();
                 logger.Debug("init main");
                 CreateHostBuilder(args).Build().Run();
             }
@@ -35,6 +39,17 @@ namespace ServiceDirectoryExporter
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                if (config is null)
+                {
+                    throw new ArgumentNullException(nameof(config));
+                }
+                else
+                {
+                    IConfigurationBuilder configurationBuilder = config.AddEnvironmentVariables();
+                }
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>().ConfigureLogging(logging =>
