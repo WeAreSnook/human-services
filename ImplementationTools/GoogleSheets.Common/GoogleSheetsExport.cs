@@ -29,8 +29,8 @@ namespace GoogleSheets.Common
             // The file token.json stores the user`s access and refresh tokens, and is created
             // automatically when the authorization flow completes for the first time.
             ClientSecrets cs = new ClientSecrets();
-            cs.ClientId = "685531379788-t32r7ar673lp1fir47kkv3ko0v2ofsqf.apps.googleusercontent.com";
-            cs.ClientSecret = "s2IYnpDbsDy36jo76y7YEHWU";
+            cs.ClientId = Environment.GetEnvironmentVariable("ClientId");
+            cs.ClientSecret = Environment.GetEnvironmentVariable("ClientSecret");
             UserCredential credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                 cs,
                 Scopes,
